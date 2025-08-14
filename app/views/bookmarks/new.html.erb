@@ -1,0 +1,12 @@
+<h1 class="h4 mb-3">Add a movie to “<%= @list.name %>”</h1>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+      <%= f.error_notification %>
+      <%= f.association :movie, collection: Movie.order(:title), prompt: "Choose a movie" %>
+      <%= f.input :comment, placeholder: "Why this movie?" %>
+      <%= f.button :submit, "Add", class: "btn btn-success" %>
+      <%= link_to "Back", @list, class: "btn btn-link" %>
+    <% end %>
+  </div>
+</div>

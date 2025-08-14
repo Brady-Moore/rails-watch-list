@@ -1,0 +1,10 @@
+<h1 class="h3 mb-3">New List</h1>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <%= simple_form_for @list do |f| %>
+      <%= f.input :name, input_html: { autofocus: true } %>
+      <%= f.button :submit, "Create List", class: "btn btn-primary" %>
+      <%= link_to "Cancel", lists_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+</div>

@@ -1,9 +1,27 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# frozen_string_literal: true
+
+require 'faker'
+
+puts 'Cleaning movies...'
+Movie.destroy_all
+Faker::UniqueGenerator.clear
+
+COUNT = 12
+puts "Seeding #{COUNT} movies..."
+
+COUNT.times do
+  title = Faker::Movie.unique.title
+  overview = Faker::Lorem.paragraph(sentence_count: 3)
+
+  poster_url = "https://picsum.photos/seed/#{title.parameterize}/300/450"
+  rating = rand(5.0..9.9).round(1)
+
+  Movie.create!(
+    title: title,
+    overview: overview,
+    poster_url: poster_url,
+    rating: rating
+  )
+end
+
+puts "Done! #{Movie.count} movies created."
